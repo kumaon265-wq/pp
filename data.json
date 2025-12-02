@@ -1,0 +1,124 @@
+{
+  "rooms": [
+    {
+      "id": "room101",
+      "name": "Room 101",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room102",
+      "name": "Room 102",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room103",
+      "name": "Room 103",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room104",
+      "name": "Room 104",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room105",
+      "name": "Room 105",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room106",
+      "name": "Room 106",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room107",
+      "name": "Room 107",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room108",
+      "name": "Room 108",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room109",
+      "name": "Room 109",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room110",
+      "name": "Room 110",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room111",
+      "name": "Room 111",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room112",
+      "name": "Room 112",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room113",
+      "name": "Room 113",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room114",
+      "name": "Room 114",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room115",
+      "name": "Room 115",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room116",
+      "name": "Room 116",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room117",
+      "name": "Room 117",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room118",
+      "name": "Room 118",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room119",
+      "name": "Room 119",
+      "status": "Vacant",
+      "guest": ""
+    },
+    {
+      "id": "room120",
+      "name": "Room 120",
+      "status": "Vacant",
+      "guest": ""
+    }
+  ]
+}

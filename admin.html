@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin - Update Rooms</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#fff;padding:20px}
+.container{max-width:720px;margin:0 auto}
+label{display:block;margin-top:10px}
+select,input{width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #ccc}
+button{margin-top:12px;padding:10px 14px;border:none;background:#2d89ef;color:#fff;border-radius:6px}
+.notice{background:#f1f1f1;padding:10px;border-radius:6px;margin-top:12px;color:#333}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Admin — Update Room</h2>
+
+<div class="notice">This admin will send updates to the site data file. You must deploy this site on Netlify and set up a GitHub token as instructed in README.</div>
+
+<label>Room</label>
+<select id="room"></select>
+
+<label>Status</label>
+<select id="status">
+  <option>Vacant</option>
+  <option>Occupied</option>
+  <option>Maintenance</option>
+</select>
+
+<label>Guest Name (optional)</label>
+<input id="guest" placeholder="Guest name"/>
+
+<button id="send">Update</button>
+
+<div id="msg" style="margin-top:12px;color:green"></div>
+
+<script>
+const rooms = [];
+for(let r=101;r<=120;r++) rooms.push({id:'room'+r,name:'Room '+r});
+const roomSel = document.getElementById('room');
+rooms.forEach(r=>{
+  const o = document.createElement('option'); o.value=r.id; o.textContent=r.name; roomSel.appendChild(o);
+});
+
+document.getElementById('send').addEventListener('click', async ()=>{
+  const roomId = roomSel.value;
+  const status = document.getElementById('status').value;
+  const guest = document.getElementById('guest').value.trim();
+  // fetch current data.json, modify, then send to function
+  try{
+    const res = await fetch('/data.json?ts=' + Date.now(), {cache:'no-store'});
+    const data = await res.json();
+    const idx = data.rooms.findIndex(x=>x.id===roomId);
+    if(idx===-1) { document.getElementById('msg').textContent='Room not found'; return; }
+    data.rooms[idx].status = status;
+    data.rooms[idx].guest = guest;
+    // send to Netlify function
+    const r2 = await fetch('/.netlify/functions/update', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    });
+    const j = await r2.json();
+    if(r2.ok) document.getElementById('msg').textContent='Updated successfully. Commit: ' + (j.content && j.content.sha ? j.content.sha.substring(0,7):'ok');
+    else document.getElementById('msg').textContent='Update failed: ' + JSON.stringify(j);
+  }catch(e){
+    document.getElementById('msg').textContent='Error: '+e.message;
+  }
+});
+</script>
+</div>
+</body>
+</html>

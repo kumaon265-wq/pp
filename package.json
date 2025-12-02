@@ -1,0 +1,6 @@
+{
+  "name": "guest-no-db",
+  "version": "1.0.0",
+  "description": "Guest room status with Netlify function updating data.json via GitHub API",
+  "main": "index.js"
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Guest Room Status</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;margin:0;padding:20px}
+h2{text-align:center}
+#grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:1000px;margin:12px auto}
+.card{padding:14px;border-radius:8px;color:#fff;min-height:64px;display:flex;flex-direction:column;justify-content:center}
+.card .title{font-weight:700}
+.card .sub{font-size:0.9em;opacity:0.95}
+footer{max-width:1000px;margin:20px auto;text-align:center;color:#666}
+</style>
+</head>
+<body>
+<h2>Guest Room Status</h2>
+<div id="grid"></div>
+<footer>Auto-refresh: <span id="last">never</span></footer>
+
+<script>
+const grid = document.getElementById('grid');
+const last = document.getElementById('last');
+
+async function fetchAndRender(){
+  try{
+    const r = await fetch('/data.json', {cache:'no-store'});
+    const data = await r.json();
+    render(data);
+    last.textContent = new Date().toLocaleTimeString();
+  }catch(e){
+    console.error(e);
+  }
+}
+
+function render(data){
+  grid.innerHTML = '';
+  data.rooms.forEach(room=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    if(room.status==='Occupied') div.style.background='#e74c3c';
+    else if(room.status==='Maintenance') div.style.background='#f39c12';
+    else div.style.background='#27ae60';
+    const t = document.createElement('div'); t.className='title'; t.textContent = room.name;
+    const s = document.createElement('div'); s.className='sub'; s.textContent = room.status + (room.guest?(' — '+room.guest):'');
+    div.appendChild(t); div.appendChild(s);
+    grid.appendChild(div);
+  });
+}
+
+// initial load + poll
+fetchAndRender();
+setInterval(fetchAndRender, 3000);
+</script>
+</body>
+</html>
